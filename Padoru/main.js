@@ -39,6 +39,9 @@ client.on('messageCreate', message => {
         case 'emote':
             message.channel.send('<:padorunobg:1179725588500582432><:harpyface:1157629813654310932>');
             break;
+        case 'countdown':
+            var msg = messageConstructor.generateCountdownMessage();
+            message.channel.send(msg);
     }
 });
 
