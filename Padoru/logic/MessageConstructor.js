@@ -1,6 +1,6 @@
 const dateCalculations = require('./DateCalculations.js');
 
-function generateCountdownMessage() {
+function countdownMessage() {
     var message;
     var differenceInDays = dateCalculations.getDifferenceInDays();
     switch(differenceInDays) {
@@ -19,14 +19,14 @@ function generateCountdownMessage() {
             break;
     }
 
-    if(specialDays() != "") {
-        message = message + "\n " + specialDays();
+    if(specialDayMessage() != "") {
+        message = message + "\n " + specialDayMessage();
     }
 
     return message;
 }
 
-function specialDays() {
+function specialDayMessage() {
     var message;
     var currentMonth = dateCalculations.getCurrentMonth();
     var currentDay = dateCalculations.getCurrentDay();
@@ -37,6 +37,31 @@ function specialDays() {
             break;
         default:
             message = "";
+            break;
+    }
+    return message;
+}
+
+function commandMessage(command) {
+    var message;
+    switch(command) {
+        case 'padoru':
+            message = 'HASHIRE SORI YO\nKAZE NO YOU NI\nTSUKIMIHARA WO\nPADORU PADORU';
+            break;
+        case 'countdown':
+            message = countdownMessage();
+            break;
+        case 'emote':
+            message = serverEmoji();
+            break;
+        case 'padoru-img':
+            message = { files: [{ attachment: './images/padoru.png' }] };
+            break;
+        case 'nero':
+            message = { files: [{ attachment: './images/nero_happy.jpg' }] };
+            break;
+        default:
+            message = '<:padorunobg:1179725588500582432> umu! invalid command! <:padorunobg:1179725588500582432>';
             break;
     }
     return message;
@@ -70,8 +95,27 @@ function seasonEmoji() {
     return seasonEmoji;
 }
 
+function serverEmoji() {
+    var random = Math.floor(Math.random() * 3);
+    var emoji;
+    switch(input) {
+        case 0:
+            emoji = '<:harpyface:1157629813654310932> ';
+            break;
+        case 1:
+            emoji = '<:padorunobg:1179725588500582432>';
+            break;
+        case 2:
+            emoji = '<:HitoriGotoh:1179725551192256523>';
+            break;
+    }
+    return emoji;
+}
+
 module.exports = {
-    generateCountdownMessage,
-    specialDays,
-    seasonEmoji
+    countdownMessage,
+    specialDayMessage,
+    commandMessage,
+    seasonEmoji,
+    serverEmoji
 }

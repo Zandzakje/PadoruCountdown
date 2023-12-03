@@ -19,7 +19,7 @@ const client = new Client({
 const prefix = '!';
 
 cron.schedule('00 00 * * *', () => {
-    var msg = messageConstructor.generateCountdownMessage();
+    var msg = messageConstructor.countdownMessage();
     client.channels.fetch('799257632619495435').then(channel => channel.send(msg));
 }, {
     scheduled: true,
@@ -31,21 +31,9 @@ client.on('messageCreate', message => {
 	
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
-	 
-    switch(command) {
-        case 'umu':
-            message.channel.send({ files: [{ attachment: './images/padoru.png' }] });
-            break;
-        case 'nero':
-            message.channel.send({ files: [{ attachment: './images/nero_happy.jpg' }] });
-            break;
-        case 'emote':
-            message.channel.send('<:padorunobg:1179725588500582432><:harpyface:1157629813654310932>');
-            break;
-        case 'countdown':
-            var msg = messageConstructor.generateCountdownMessage();
-            message.channel.send(msg);
-    }
+	
+    var commandMessage = messageConstructor.commandMessage(command);
+    message.channel.send(commandMessage);
 });
 
 client.login('MTE4MDg1NTM4MTU4NTU1OTU2Mg.GMudco.UDXhP5EDcTIMBjMM_Mlm36neMc0SSL3iqVaQNw');
