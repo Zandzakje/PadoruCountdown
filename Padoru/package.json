@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.14.1",
+    "luxon": "^3.4.4",
     "node-cron": "^3.0.0"
   }
 }

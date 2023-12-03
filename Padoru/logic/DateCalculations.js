@@ -1,3 +1,5 @@
+const { DateTime } = require('luxon');
+
 function getDifferenceInDays() {
     var differenceInTime = getCountdownDate().getTime() - getCurrentDate().getTime();
     var differenceInDays = Math.round(differenceInTime / (1000 * 3600 * 24));
@@ -30,23 +32,31 @@ function getCurrentDate() {
     return currentDate;
 }
 
+function getCurrentDateWithTimezone() {
+    var dateTime = DateTime.local();
+    var timezone = dateTime.setZone("Europe/Amsterdam").toString();
+    var dateString = timezone.slice(0, -10) + "z";
+    var currentDate = new Date(dateString);
+    return currentDate;
+}
+
 function getCurrentDay() {
-    var currentDay = new Date().getDate();
+    var currentDay = getCurrentDateWithTimezone().getDate();
     return currentDay;
 }
 
 function getCurrentMonth() {
-    var currentMonth = new Date().getMonth() + 1;
+    var currentMonth = getCurrentDateWithTimezone().getMonth() + 1;
     return currentMonth;
 }
 
 function getCurrentYear() {
-    var currentYear = new Date().getFullYear();
+    var currentYear = getCurrentDateWithTimezone().getFullYear();
     return currentYear;
 }
 
 function getNextYear() {
-    var nextYear = new Date().getFullYear() + 1;
+    var nextYear = getCurrentDateWithTimezone().getFullYear() + 1;
     return nextYear;
 }
 
@@ -56,6 +66,7 @@ module.exports = {
     getCountdownDate,
     updateCountdownDate,
     getCurrentDate,
+    getCurrentDateWithTimezone,
     getCurrentDay,
     getCurrentMonth,
     getCurrentYear,

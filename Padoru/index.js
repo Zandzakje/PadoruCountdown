@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
-const cron = require('./node_modules/node-cron');
+const cron = require('node-cron');
 const messageConstructor = require('./logic/MessageConstructor.js');
 const client = new Client({ 
     intents: [
@@ -18,9 +18,12 @@ const client = new Client({
 });
 const prefix = '!';
 
-cron.schedule('00 00 00 * * *', () => {
+cron.schedule('00 00 * * *', () => {
     var msg = messageConstructor.generateCountdownMessage();
     client.channels.fetch('799257632619495435').then(channel => channel.send(msg));
+}, {
+    scheduled: true,
+    timezone: "Europe/Amsterdam"
 });
 
 client.on('messageCreate', message => {
@@ -45,6 +48,9 @@ client.on('messageCreate', message => {
     }
 });
 
-client.login('ODg0Mzk3MTMzODAzOTc4Nzky.YTX5BA.sVv0T3e74wcBreWbQwB8v1NmBps');
+client.login('MTE4MDg1NTM4MTU4NTU1OTU2Mg.GMudco.UDXhP5EDcTIMBjMM_Mlm36neMc0SSL3iqVaQNw');
+
+// -- Local testing --
 // start bot: node main.js
 // stop bot: ctrl + c
+// -- x --
