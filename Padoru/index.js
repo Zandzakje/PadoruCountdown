@@ -36,7 +36,7 @@ client.on('messageCreate', message => {
     message.channel.send(commandMessage);
 });
 
-client.login('MTE4MDg1NTM4MTU4NTU1OTU2Mg.GMudco.UDXhP5EDcTIMBjMM_Mlm36neMc0SSL3iqVaQNw');
+client.login('');
 
 // -- Local testing --
 // start bot: node main.js
