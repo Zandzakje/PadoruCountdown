@@ -14,13 +14,13 @@ function updateDifferenceInDays() {
 
 function getCountdownDate() {
     var currentYear = getCurrentYear();
-    var countdownDate = new Date("12/24/" + currentYear);
+    var countdownDate = new Date("12/22/" + currentYear);
     return countdownDate;
 }
 
 function updateCountdownDate() {
     var nextYear = getNextYear();
-    var updateCountdownDate = new Date("12/24/" + nextYear);
+    var updateCountdownDate = new Date("12/22/" + nextYear);
     return updateCountdownDate;
 }
 

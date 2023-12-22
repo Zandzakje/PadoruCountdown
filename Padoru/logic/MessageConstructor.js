@@ -3,26 +3,20 @@ const dateCalculations = require('./DateCalculations.js');
 function countdownMessage() {
     var message;
     var differenceInDays = dateCalculations.getDifferenceInDays();
-    switch(differenceInDays) {
-        case 1:
-            message = seasonEmoji() + " umu! **" + differenceInDays + "** day until padoru " + dateCalculations.getCurrentYear() + "! " + seasonEmoji();
-            break;
-        case 0:
-            message = seasonEmoji() + " umu! **Today** it's padoru " + dateCalculations.getCurrentYear() + "! Happy padoru! <:padorunobg:1179725588500582432> " + seasonEmoji();
-            break;
-        case -1:
-            differenceInDays = dateCalculations.updateDifferenceInDays();
-            message = seasonEmoji() + " umu! **" + differenceInDays + "** days until padoru " + dateCalculations.getNextYear() + "! " + seasonEmoji();
-            break;
-        default:
-            message = seasonEmoji() + " umu! **" + differenceInDays + "** days until padoru " + dateCalculations.getCurrentYear() + "! " + seasonEmoji();
-            break;
+    if(differenceInDays == 1){
+        message = seasonEmoji() + " umu! **" + differenceInDays + "** day until padoru " + dateCalculations.getCurrentYear() + "! " + seasonEmoji();
+    } else if(differenceInDays === 0){
+        message = seasonEmoji() + " umu! **Today** it's padoru " + dateCalculations.getCurrentYear() + "! Happy padoru! <:padorunobg:1179725588500582432> " + seasonEmoji();
+    } else if(differenceInDays < 0){
+        differenceInDays = dateCalculations.updateDifferenceInDays();
+        message = seasonEmoji() + " umu! **" + differenceInDays + "** days until padoru " + dateCalculations.getNextYear() + "! " + seasonEmoji();
+    } else {
+        message = seasonEmoji() + " umu! **" + differenceInDays + "** days until padoru " + dateCalculations.getCurrentYear() + "! " + seasonEmoji();
     }
 
     if(specialDayMessage() != "") {
         message = message + "\n " + specialDayMessage();
     }
-
     return message;
 }
 
