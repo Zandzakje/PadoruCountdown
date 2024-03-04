@@ -9,8 +9,9 @@
   "author": "Nero Claudius",
   "license": "ISC",
   "dependencies": {
+    "discord-api-types": "^0.37.71",
     "discord.js": "^14.14.1",
     "luxon": "^3.4.4",
-    "node-cron": "^3.0.0"
+    "node-cron": "^3.0.3"
   }
 }

@@ -4,20 +4,33 @@ function countdownMessage() {
     var message;
     var differenceInDays = dateCalculations.getDifferenceInDays();
     if(differenceInDays == 1){
-        message = seasonEmoji() + " umu! **" + differenceInDays + "** day until padoru " + dateCalculations.getCurrentYear() + "! " + seasonEmoji();
+        message = prefabStrings()[0] + seasonEmoji() + " umu! " + differenceInDays + " day until padoru " + dateCalculations.getCurrentYear() + "! " + seasonEmoji();
     } else if(differenceInDays === 0){
-        message = seasonEmoji() + " umu! **Today** it's padoru " + dateCalculations.getCurrentYear() + "! Happy padoru! <:padorunobg:1179725588500582432> " + seasonEmoji();
+        message = seasonEmoji() + " umu! Today it's padoru " + dateCalculations.getCurrentYear() + "! Happy padoru! <:padorunobg:1179725588500582432> " + seasonEmoji();
     } else if(differenceInDays < 0){
         differenceInDays = dateCalculations.updateDifferenceInDays();
-        message = seasonEmoji() + " umu! **" + differenceInDays + "** days until padoru " + dateCalculations.getNextYear() + "! " + seasonEmoji();
+        message = seasonEmoji() + " umu! " + differenceInDays + " days until padoru " + dateCalculations.getNextYear() + "! " + seasonEmoji();
     } else {
-        message = seasonEmoji() + " umu! **" + differenceInDays + "** days until padoru " + dateCalculations.getCurrentYear() + "! " + seasonEmoji();
+        message = prefabStrings()[0] + seasonEmoji() + prefabStrings()[1] + differenceInDays + prefabStrings()[3] + dateCalculations.getCurrentYear() + prefabStrings()[4] + seasonEmoji();
     }
 
     if(specialDayMessage() != "") {
-        message = message + "\n " + specialDayMessage();
+        message = message + "\n" + "**Special mentions:**" +  "\n" + specialDayMessage();
     }
     return message;
+}
+
+function prefabStrings() {
+    const prefabs = [
+        "## ",
+        " umu! ",
+        " day until padoru ",
+        " days until padoru ",
+        "! ",
+        "Today it's padoru ",
+        "Happy padoru "
+    ];
+    return prefabs;
 }
 
 function specialDayMessage() {
@@ -27,7 +40,10 @@ function specialDayMessage() {
     var currentMonthDay = currentMonth + "/" + currentDay;
     switch(currentMonthDay) {
         case "1/1":
-            message = ":fireworks: Happy new year! :fireworks:";
+            message = "- Happy new year! :fireworks:";
+            break;
+        case "3/4":
+            message = "- Happy march 4th! :fireworks: \n- Test <@525235066868203530> :fallen_leaf: \n- ᗜˬᗜ";
             break;
         default:
             message = "";
@@ -92,7 +108,7 @@ function seasonEmoji() {
 function serverEmoji() {
     var random = Math.floor(Math.random() * 3);
     var emoji;
-    switch(input) {
+    switch(random) {
         case 0:
             emoji = '<:harpyface:1157629813654310932> ';
             break;
@@ -108,6 +124,7 @@ function serverEmoji() {
 
 module.exports = {
     countdownMessage,
+    prefabStrings,
     specialDayMessage,
     commandMessage,
     seasonEmoji,

@@ -26,6 +26,32 @@ cron.schedule('00 00 * * *', () => {
     timezone: "Europe/Amsterdam"
 });
 
+cron.schedule('00 * * * *', () => {
+    var randomActivity = Math.floor(Math.random() * 5);
+    var randomStatus = Math.floor(Math.random() * 3);
+    switch(random) {
+        case 0:
+            client.user.setPresence({
+                activities: [{
+                    name: 'Fate/GO',
+                    type: ActivityType.Streaming
+                }],
+                status: 'dnd' // online, idle, invisible, dnd
+            });
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+    }
+    // client.user.setActivity('Honkai: Star Rail', { type: ActivityType.Streaming });
+    // client.user.setPresence({status: 'online'});
+});
+
 client.on('messageCreate', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	
@@ -34,6 +60,10 @@ client.on('messageCreate', message => {
 	
     var commandMessage = messageConstructor.commandMessage(command);
     message.channel.send(commandMessage);
+});
+
+client.on('messageCreate', message => {
+	if (!message.content.startsWith('?') || message.author.bot) return;
 });
 
 client.login('');
