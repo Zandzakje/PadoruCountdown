@@ -77,6 +77,10 @@ function commandMessage(command) {
     return message;
 }
 
+function statusMessage() {
+    
+}
+
 function seasonEmoji() {
     var seasonEmoji;
     var currentMonth = dateCalculations.getCurrentMonth();

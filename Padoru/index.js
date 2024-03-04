@@ -1,6 +1,7 @@
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 const cron = require('node-cron');
 const messageConstructor = require('./logic/MessageConstructor.js');
+const botActivity = require('./logic/BotActivity.js');
 const client = new Client({ 
     intents: [
         GatewayIntentBits.Guilds,
@@ -27,26 +28,15 @@ cron.schedule('00 00 * * *', () => {
 });
 
 cron.schedule('00 * * * *', () => {
-    var randomActivity = Math.floor(Math.random() * 5);
-    var randomStatus = Math.floor(Math.random() * 3);
     switch(random) {
         case 0:
             client.user.setPresence({
                 activities: [{
-                    name: 'Fate/GO',
-                    type: ActivityType.Streaming
+                    name: botActivity.,
+                    type: ActivityType.Playing
                 }],
                 status: 'dnd' // online, idle, invisible, dnd
             });
-            break;
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
     }
     // client.user.setActivity('Honkai: Star Rail', { type: ActivityType.Streaming });
     // client.user.setPresence({status: 'online'});
