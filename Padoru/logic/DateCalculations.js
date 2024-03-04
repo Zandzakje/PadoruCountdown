@@ -1,4 +1,4 @@
-const { DateTime } = require('luxon');
+const { DateTime } = require("luxon");
 
 function getDifferenceInDays() {
     var differenceInTime = getCountdownDate().getTime() - getCurrentDate().getTime();
@@ -14,13 +14,13 @@ function updateDifferenceInDays() {
 
 function getCountdownDate() {
     var currentYear = getCurrentYear();
-    var countdownDate = new Date("12/22/" + currentYear);
+    var countdownDate = new Date("12/24/" + currentYear);
     return countdownDate;
 }
 
 function updateCountdownDate() {
     var nextYear = getNextYear();
-    var updateCountdownDate = new Date("12/22/" + nextYear);
+    var updateCountdownDate = new Date("12/24/" + nextYear);
     return updateCountdownDate;
 }
 

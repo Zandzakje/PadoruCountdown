@@ -1,4 +1,4 @@
-const dateCalculations = require('./DateCalculations.js');
+const dateCalculations = require("./DateCalculations.js");
 
 function countdownMessage() {
     var message;
@@ -46,7 +46,7 @@ function specialDayMessage() {
             message = "- Happy march 4th! :fireworks: \n- Test <@525235066868203530> :fallen_leaf: \n- ᗜˬᗜ";
             break;
         default:
-            message = "";
+            message = rareMessage();
             break;
     }
     return message;
@@ -55,30 +55,26 @@ function specialDayMessage() {
 function commandMessage(command) {
     var message;
     switch(command) {
-        case 'padoru':
-            message = 'HASHIRE SORI YO\nKAZE NO YOU NI\nTSUKIMIHARA WO\nPADORU PADORU';
+        case "padoru":
+            message = "HASHIRE SORI YO\nKAZE NO YOU NI\nTSUKIMIHARA WO\nPADORU PADORU";
             break;
-        case 'countdown':
+        case "countdown":
             message = countdownMessage();
             break;
-        case 'emote':
+        case "emote":
             message = serverEmoji();
             break;
-        case 'padoru-img':
-            message = { files: [{ attachment: './images/padoru.png' }] };
+        case "padoru-img":
+            message = { files: [{ attachment: "./images/padoru.png" }] };
             break;
-        case 'nero':
-            message = { files: [{ attachment: './images/nero_happy.jpg' }] };
+        case "nero":
+            message = { files: [{ attachment: "./images/nero_happy.jpg" }] };
             break;
         default:
-            message = '<:padorunobg:1179725588500582432> umu! invalid command! <:padorunobg:1179725588500582432>';
+            message = "<:padorunobg:1179725588500582432> umu! invalid command! <:padorunobg:1179725588500582432>";
             break;
     }
     return message;
-}
-
-function statusMessage() {
-    
 }
 
 function seasonEmoji() {
@@ -114,13 +110,13 @@ function serverEmoji() {
     var emoji;
     switch(random) {
         case 0:
-            emoji = '<:harpyface:1157629813654310932> ';
+            emoji = "<:harpyface:1157629813654310932> ";
             break;
         case 1:
-            emoji = '<:padorunobg:1179725588500582432>';
+            emoji = "<:padorunobg:1179725588500582432>";
             break;
         case 2:
-            emoji = '<:HitoriGotoh:1179725551192256523>';
+            emoji = "<:HitoriGotoh:1179725551192256523>";
             break;
     }
     return emoji;
@@ -130,6 +126,7 @@ module.exports = {
     countdownMessage,
     prefabStrings,
     specialDayMessage,
+    rareMessage,
     commandMessage,
     seasonEmoji,
     serverEmoji
