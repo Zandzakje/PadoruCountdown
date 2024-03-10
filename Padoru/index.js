@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits, ActivityType } = require("discord.js");
-const cron = require("node-cron");
-const messageConstructor = require("./logic/MessageConstructor.js");
-const botSettings = require("./logic/BotSettings.js");
+const messageConstructor = require("./files/MessageConstructor.js");
+const botSettings = require("./files/BotSettings.js");
+const emoji = require("./files/Emoji.js");
 const client = new Client({ 
     intents: [
         GatewayIntentBits.Guilds,
@@ -17,46 +17,63 @@ const client = new Client({
         status: "dnd" // online, idle, invisible, dnd
     }
 });
-const prefix = "!";
-
-cron.schedule("00 00 * * *", () => {
-    var msg = messageConstructor.countdownMessage();
-    client.channels.fetch("799257632619495435").then(channel => channel.send(msg));
-}, {
-    scheduled: true,
-    timezone: "Europe/Amsterdam"
-});
-
-cron.schedule("00 * * * *", () => {
-    client.user.setPresence({
-        activities: [{
-            name: botSettings.randomActivity(),
-            type: ActivityType.Playing
-        }],
-        status: botSettings.randomStatus() 
-    });
-});
 
 client.on("messageCreate", message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
-	
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
-	const command = args.shift().toLowerCase();
-	
-    var commandMessage = messageConstructor.commandMessage(command);
-    message.channel.send(commandMessage);
-});
+	if(!botSettings.prefixes.some(prefix => message.content.startsWith(prefix)) || message.author.bot) return;
+    var command;
+    var command2;
+    var commandMessage;
+    if(message.content.startsWith(botSettings.prefixes[0])){
+        command = messageConstructor.SeperateMessageFromPrefix(message.content, 0);
+        commandMessage = messageConstructor.CommandMessage(command);
+        if(commandMessage != "error"){
+            message.react(emoji.defaultEmojis[7]);
+            message.channel.send(commandMessage);
+        }else{
+            message.react(emoji.defaultEmojis[8]);
+        }
+    }
 
-// client.on("messageCreate", message => {
-// 	if (!message.content.startsWith("?") || message.author.bot) return;
-//     client.user.setPresence({
-//         activities: [{
-//             name: botSettings.randomActivity(),
-//             type: ActivityType.Playing
-//         }],
-//         status: botSettings.randomStatus() 
-//     });
-// });
+    if(message.content.startsWith(botSettings.prefixes[1])){
+        command = messageConstructor.SeperateMessageFromPrefix(message.content, 1);
+        if(command.startsWith("emoji")){
+            var emojiString = "emoji";
+            command2 = command.slice(emojiString.length).trim().split(/ +/);
+            if(command2 != ""){
+                var command2FirstOnly = String(command2).charAt(0);
+                var command2Converted = Number(command2FirstOnly);
+                switch(command2Converted){
+                    case 0:
+                    case 1:
+                    case 2:
+                        commandMessage = emoji.serverEmojis[command2FirstOnly];
+                        message.react(emoji.defaultEmojis[7]);
+                        message.channel.send(commandMessage);
+                        break;
+                    default:
+                        message.react(emoji.defaultEmojis[8]);
+                        break;
+                }
+            }else{
+                commandMessage = emoji.RandomServerEmoji();
+                message.react(emoji.defaultEmojis[7]);
+                message.channel.send(commandMessage);
+            }
+        }else{
+            message.react(emoji.defaultEmojis[8]);
+        }
+    }
+
+    if(message.content.startsWith(botSettings.prefixes[2])){
+        command = messageConstructor.SeperateMessageFromPrefix(message.content, 2);
+        if(command == "switch"){
+            message.react(emoji.defaultEmojis[7]);
+            botSettings.ChangePresence(client);
+        }else{
+            message.react(emoji.defaultEmojis[8]);
+        }
+    }
+});
 
 client.login("");
 
