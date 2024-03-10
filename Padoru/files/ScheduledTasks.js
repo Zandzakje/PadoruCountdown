@@ -5,7 +5,7 @@ const index = require("../index.js");
 
 cron.schedule("00 00 * * *", () => {
     var message = messageConstructor.CountdownMessage();
-    client.channels.fetch("799257632619495435").then(channel => channel.send(message));
+    client.channels.fetch("798937372657319969").then(channel => channel.send(message));
 }, {
     scheduled: true,
     timezone: "Europe/Amsterdam"
