@@ -1,7 +1,5 @@
 const { Client, GatewayIntentBits, ActivityType } = require("discord.js");
-const messageConstructor = require("./files/MessageConstructor.js");
 const botSettings = require("./files/BotSettings.js");
-const emoji = require("./files/Emoji.js");
 const client = new Client({ 
     intents: [
         GatewayIntentBits.Guilds,
@@ -16,6 +14,25 @@ const client = new Client({
         }],
         status: "dnd" // online, idle, invisible, dnd
     }
+});
+const cron = require("node-cron");
+const emoji = require("./files/Emoji.js");
+const messageConstructor = require("./files/MessageConstructor.js");
+
+
+cron.schedule("00 00 * * *", () => {
+    var message = messageConstructor.CountdownMessage();
+    client.channels.fetch("798937372657319969").then(channel => channel.send(message));
+}, {
+    scheduled: true,
+    timezone: "Europe/Amsterdam"
+});
+
+cron.schedule("00,30 * * * *", () => {
+    botSettings.ChangePresence(client);
+}, {
+    scheduled: true,
+    timezone: "Europe/Amsterdam"
 });
 
 client.on("messageCreate", message => {
