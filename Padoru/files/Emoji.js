@@ -11,7 +11,8 @@ const defaultEmojis = [
     "\u2705",       // check mark
     "\u274E",       // cross mark
     "\u2B50",       // star
-    "\u2728"        // sparkles
+    "\u2728",       // sparkles
+    "\u2694\uFE0F"  // crossed swords
 ];
 
 const serverEmojis = [

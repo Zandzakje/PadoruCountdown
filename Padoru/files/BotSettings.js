@@ -1,10 +1,4 @@
-const { Client, GatewayIntentBits, ActivityType } = require("discord.js");
-
-const prefixes = [
-    "!",
-    "^",
-    "?"
-];
+const { ActivityType } = require("discord.js");
 
 function ChangePresence(client) {
     client.user.setPresence({
@@ -64,7 +58,6 @@ function RandomStatus() {
 }
 
 module.exports = {
-    prefixes,
     ChangePresence,
     RandomActivity,
     RandomStatus
