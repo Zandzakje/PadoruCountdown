@@ -1,9 +1,8 @@
 // -- Discord bot setup --
-const { Client, Collection, GatewayIntentBits, ActivityType, Events, REST, Routes } = require("discord.js");
-const { clientId, guildId, token } = require("./config.json");
+const { Client, Collection, GatewayIntentBits, ActivityType, Events } = require("discord.js");
+const { token } = require("./config.json");
 const botSettings = require("./files/BotSettings.js");
 const cron = require("node-cron");
-const emoji = require("./files/Emoji.js");
 const mainMessage = require("./files/MainMessage.js");
 const client = new Client({ 
     intents: [
